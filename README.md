@@ -1,4 +1,17 @@
-# Getting Started with Create React App
+# SPÉCIESLE
+
+Guess species by their 6(or 5) base stat!
+
+Species are plotted on 6(or 5)-Dimensional Euclidean Space.
+
+Once you send a species, you can get informed how far 
+guessed species is different form target one in the Space.
+
+Ensure the target within 6 times guessing.
+
+Good Luck!
+
+## This project is created...
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
