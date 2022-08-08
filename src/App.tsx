@@ -5,7 +5,7 @@ import Game from "./Game";
 const App = () => (
   <div className="App">
     <header className="App-header">
-      SPECIESLE
+      SPÉCIESLE
     </header>
     <Game/>
   </div>
