@@ -1,13 +1,40 @@
 # SPÉCIESLE
 
-Guess species by their 6(or 5) base stat!
+```
+⬛⬛🟨🟨⬛🟨 40.31
+⬛⬛⬛⬛⬛⬛ 71.43
+🟨⬛⬛⬛🟨⬛ 62.25
+⬛🟨⬛⬛⬛🟨 73.31
+⬛⬛⬛⬛⬛🟨 61.83
+🟨⬛⬛⬛🟨🟨 59.55
+🟩⬛⬛⬛⬛⬛ 69.46
+⬛🟨⬛⬛⬛🟨 49.24
+🟨⬛⬛⬛⬛⬛ 107.47
+⬛🟩🟨🟩⬛🟩 45.83
+🟨⬛⬛⬛⬛⬛ 41.53
+🟩⬛⬛⬛⬛⬛ 107.59
+⬛⬛⬛⬛⬛⬛ 116.51
+🟨🟨⬛⬛⬛⬛ 41.83
+🟨⬛⬛⬛⬛🟨 43.87
+🟩⬛⬛🟨🟩⬛ 45.83
+⬛⬛⬛🟨🟨🟨 57.75
+⬛⬛⬛🟨⬛🟨 68.01
+🟨🟩🟨⬛🟩⬛ 35.00
+⬛🟨🟩⬛🟨⬛ 74.83
+🟨🟨🟨⬛🟨⬛ 90.26
+🟩🟩🟩🟩🟩🟩 Correct!!🎉
+```
 
-Species are plotted on 6(or 5)-Dimensional Euclidean Space.
+Guess species by their 6 base stat!
+
+Species are plotted on 6-Dimensional Euclidean Space.
 
 Once you send a species, you can get informed how far 
 guessed species is different form target one in the Space.
 
-Ensure the target within 6 times guessing.
+~~Ensure the target within 6 times guessing.~~
+
+You can guess until it's ensured!
 
 Good Luck!
 
