@@ -9,6 +9,7 @@ interface GameStatus {
   guessingString: string,
   answerSpecies: Species
   distanceType: DistanceSpecies<Species>,
+  distanceMarker: (n: number) => string
 }
 
 export default class Game extends React.Component<GameProps, GameStatus> {
@@ -19,6 +20,15 @@ export default class Game extends React.Component<GameProps, GameStatus> {
       guessingString: "",
       answerSpecies: randomSpecies(),
       distanceType: defaultDistanceSpecies,
+      distanceMarker(n: number): string {
+        if (n === 0) {
+          return "🟩"
+        } else if (n <= 10) {
+          return "🟨"
+        } else {
+          return "⬛"
+        }
+      },
     }
 
     this.handleGuessingStringChange = this.handleGuessingStringChange.bind(this)
@@ -35,14 +45,15 @@ export default class Game extends React.Component<GameProps, GameStatus> {
         return
       }
       const distance = this.state.distanceType.distanceNorm(guessingSpecies, this.state.answerSpecies)
+      const distanceForeach = this.state.distanceType.distanceForeach(guessingSpecies, this.state.answerSpecies).map(this.state.distanceMarker)
       if (distance === 0) {
-        const nextGuessingList = [...this.state.guessingList, this.state.guessingString + " -> Correct!!🎉"]
+        const nextGuessingList = [...this.state.guessingList, guessingSpecies.name() + " " + distanceForeach.join("") + " Correct!!🎉"]
         this.setState({
           guessingString: "",
           guessingList: nextGuessingList,
         })
       } else {
-        const nextGuessingList = [...this.state.guessingList, this.state.guessingString + " -> " + distance.toFixed(2)]
+        const nextGuessingList = [...this.state.guessingList, guessingSpecies.name() + " " + distanceForeach.join("") + " " + distance.toFixed(2)]
         this.setState({
           guessingString: "",
           guessingList: nextGuessingList,
@@ -75,7 +86,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
             value={this.state.guessingString}
             onChange={this.handleGuessingStringChange}
             onKeyDown={this.sendSpecies}
-            placeholder="フシギダネ"
+            placeholder="ニドランオス(赤/緑のみ)"
           />
         </div>
       </div>

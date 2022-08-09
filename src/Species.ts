@@ -9,6 +9,10 @@ export class Species {
     return this._stats
   }
 
+  name() {
+    return this._speciesName
+  }
+
   statsString(): string {
     return this._stats.join("-")
   }
@@ -187,6 +191,11 @@ const speciesMapNative = new Map<string, number[]>([
 export const speciesNameList = Array.from(speciesMapNative.keys())
 
 export function speciesByName(name: string): Species {
+  name = name.replace(/[ぁ-ん]/g, ch => String.fromCharCode(ch.charCodeAt(0) + 0x60))
+  name = name.replace(/オス$/, "♂")
+  name = name.replace(/メス$/, "♀")
+  name = name.replace(/^ユイイツオウ$/, "ブースター")
+  name = name.replace(/^唯一王$/, "ブースター")
   const stats = speciesMapNative.get(name)
   if (stats === undefined) {
     return new Species("MissingNo", [0, 0, 0, 0, 0, 0])
