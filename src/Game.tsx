@@ -1,5 +1,5 @@
 import React from "react";
-import {DistanceSpecies, randomSpecies, Species, speciesByName} from "./Species";
+import {defaultDistanceSpecies, DistanceSpecies, randomSpecies, Species, speciesByName} from "./Species";
 
 interface GameProps {
 }
@@ -18,14 +18,9 @@ export default class Game extends React.Component<GameProps, GameStatus> {
       guessingList: [],
       guessingString: "",
       answerSpecies: randomSpecies(),
-      distanceType: {
-        distance: (lhd, rhd) => {
-          return Math.sqrt(
-            lhd.stats().map((le, i) => Math.pow(le - rhd.stats()[i], 2)).reduce((l, r) => l + r, 0)
-          )
-        }
-      }
+      distanceType: defaultDistanceSpecies,
     }
+
     this.handleGuessingStringChange = this.handleGuessingStringChange.bind(this)
     this.sendSpecies = this.sendSpecies.bind(this)
   }
@@ -39,7 +34,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
       if (guessingSpecies.stats().reduce((l, r) => l + r, 0) === 0) {
         return
       }
-      const distance = this.state.distanceType.distance(guessingSpecies, this.state.answerSpecies)
+      const distance = this.state.distanceType.distanceNorm(guessingSpecies, this.state.answerSpecies)
       if (distance === 0) {
         const nextGuessingList = [...this.state.guessingList, this.state.guessingString + " -> Correct!!🎉"]
         this.setState({
@@ -47,7 +42,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
           guessingList: nextGuessingList,
         })
       } else {
-        const nextGuessingList = [...this.state.guessingList, this.state.guessingString + " -> " + Math.round(distance)]
+        const nextGuessingList = [...this.state.guessingList, this.state.guessingString + " -> " + distance.toFixed(2)]
         this.setState({
           guessingString: "",
           guessingList: nextGuessingList,

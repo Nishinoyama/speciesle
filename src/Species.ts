@@ -15,7 +15,19 @@ export class Species {
 }
 
 export interface DistanceSpecies<T extends Species> {
-  distance: (lhd: T, rhd: T) => number
+  distanceNorm: (lhd: T, rhd: T) => number
+  distanceForeach: (lhd: T, rhd: T) => number[]
+}
+
+export const defaultDistanceSpecies: DistanceSpecies<Species> = {
+  distanceForeach: (lhd, rhd) => {
+    return Array.from(lhd.stats().map((le, i) => Math.abs(le - rhd.stats()[i])))
+  },
+  distanceNorm: (lhd, rhd) => {
+    return Math.sqrt(
+      lhd.stats().map((le, i) => Math.pow(le - rhd.stats()[i], 2)).reduce((l, r) => l + r, 0)
+    )
+  },
 }
 
 const speciesMapNative = new Map<string, number[]>([
