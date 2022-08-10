@@ -1,17 +1,18 @@
 import React from "react";
-import {defaultDistanceSpecies, DistanceSpecies, randomSpecies, Species, speciesByName} from "./Species";
+import {DistanceSpecies, randomSpecies, Species, speciesByName} from "./Species";
 import Guess, {GuessInterface} from "./Guess";
 import "./Game.css"
 
 interface GameProps {
+  distanceMarker: (n: number) => DistanceMarker
+  distanceType: DistanceSpecies<Species>
 }
 
 interface GameStatus {
-  guessingList: GuessInterface[],
-  guessingString: string,
+  guessingList: GuessInterface[]
+  guessingString: string
   answerSpecies: Species
-  distanceType: DistanceSpecies<Species>,
-  distanceMarker: (n: number) => DistanceMarker
+  revealed: boolean[]
 }
 
 export enum DistanceMarker {
@@ -27,19 +28,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
       guessingList: [],
       guessingString: "",
       answerSpecies: randomSpecies(),
-      distanceType: defaultDistanceSpecies,
-      distanceMarker(n: number): DistanceMarker {
-        if (n === 0) {
-          return DistanceMarker.Exact
-          // return "🟩"
-        } else if (n <= 10) {
-          return DistanceMarker.Close
-          // return "🟨"
-        } else {
-          return DistanceMarker.Far
-          // return "⬛"
-        }
-      },
+      revealed: new Array(6).fill(false)
     }
 
     this.handleGuessingStringChange = this.handleGuessingStringChange.bind(this)
@@ -55,8 +44,9 @@ export default class Game extends React.Component<GameProps, GameStatus> {
       if (guessingSpecies.stats().reduce((l, r) => l + r, 0) === 0) {
         return
       }
-      const distance = this.state.distanceType.distanceNorm(guessingSpecies, this.state.answerSpecies)
-      const distanceForeach = this.state.distanceType.distanceForeach(guessingSpecies, this.state.answerSpecies).map(this.state.distanceMarker)
+      const distance = this.props.distanceType.distanceNorm(guessingSpecies, this.state.answerSpecies)
+      const distanceForeachNumber = this.props.distanceType.distanceForeach(guessingSpecies, this.state.answerSpecies)
+      const distanceForeach = distanceForeachNumber.map(this.props.distanceMarker)
       const nextGuessingList = this.state.guessingList.concat([{
         speciesName: guessingSpecies.name(),
         distanceForeach,
@@ -65,6 +55,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
       this.setState({
         guessingString: "",
         guessingList: nextGuessingList,
+        revealed: this.state.revealed.map((b, i) => b || distanceForeach[i] === DistanceMarker.Exact)
       })
     }
   }
@@ -80,8 +71,13 @@ export default class Game extends React.Component<GameProps, GameStatus> {
       <div className="Game">
         <div className="MissingNo">
           <div className="MissingName">???</div>
-          {this.state.answerSpecies.stats().map(t => <div className="MissingEach">{t}</div>)}
-          <div className="MissingStat">{this.state.answerSpecies.stats().reduce((l, r) => l + r)}</div>
+          {this.state.answerSpecies.stats().map((t, i) => (
+              this.state.revealed[i] ?
+                <div className="MissingEach MissingEachRevealed" key={i}>{t}</div> :
+                <div className="MissingEach" key={i}>{"HABCDS"[i]}</div>
+            )
+          )}
+          <div className="MissingStat">???</div>
         </div>
         <div className="GuessList">
           {this.state.guessingList.map((g, i) => (
