@@ -79,7 +79,9 @@ export default class Game extends React.Component<GameProps, GameStatus> {
     return (
       <div className="Game">
         <div className="MissingNo">
-          {`${this.state.answerSpecies.statsString()} (${this.state.answerSpecies.stats().reduce((l, r) => l + r, 0)})`}
+          <div className="MissingName">???</div>
+          {this.state.answerSpecies.stats().map(t => <div className="MissingEach">{t}</div>)}
+          <div className="MissingStat">{this.state.answerSpecies.stats().reduce((l, r) => l + r)}</div>
         </div>
         <div className="GuessList">
           {this.state.guessingList.map((g, i) => (
