@@ -1,6 +1,7 @@
 import React from "react";
 import {defaultDistanceSpecies, DistanceSpecies, randomSpecies, Species, speciesByName} from "./Species";
 import Guess, {GuessInterface} from "./Guess";
+import "./Game.css"
 
 interface GameProps {
 }

@@ -1,4 +1,5 @@
 import {DistanceMarker} from "./Game";
+import "./Guess.css"
 
 export interface GuessInterface {
   speciesName: string

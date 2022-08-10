@@ -1,9 +1,10 @@
 .App {
-  min-width: 100vw;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 32rem;
   color: white;
   text-align: center;
-  background-color: #282c34;
 }
 
 .App-header {
