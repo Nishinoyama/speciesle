@@ -99,7 +99,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
             value={this.state.guessingString}
             onChange={this.handleGuessingStringChange}
             onKeyDown={this.sendSpecies}
-            placeholder="ニドランオス(赤/緑のみ)"
+            placeholder="シンオウ(4世代)まで"
           />
         </div>
       </div>
