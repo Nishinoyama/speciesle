@@ -49,7 +49,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
       const distanceForeachNumber = this.props.distanceType.distanceForeach(guessingSpecies, this.state.answerSpecies)
       const distanceForeach = distanceForeachNumber.map(this.props.distanceMarker)
       const nextGuessingList = this.state.guessingList.concat([{
-        speciesName: guessingSpecies.name(),
+        species: guessingSpecies,
         distanceForeach,
         distance,
       }])
@@ -87,7 +87,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
         <div className="GuessList">
           {this.state.guessingList.map((g, i) => (
             <Guess
-              speciesName={g.speciesName}
+              species={g.species}
               distanceForeach={g.distanceForeach}
               distance={g.distance}
               key={i}

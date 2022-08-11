@@ -1,6 +1,7 @@
 import {DistanceMarker} from "./Game";
 import "./Guess.css"
 import React from "react";
+import {Species} from "./Species";
 
 interface GuessState {
   distanceForeach: DistanceMarker[]
@@ -8,7 +9,7 @@ interface GuessState {
 }
 
 export interface GuessProps {
-  speciesName: string
+  species: Species
   distanceForeach: DistanceMarker[]
   distance: number
 }
@@ -59,23 +60,25 @@ export default class Guess extends React.Component<GuessProps, GuessState> {
     return (
       <div className="GuessRow">
         <div className="GuessName">
-          {this.props.speciesName}
+          {this.props.species.name()}
         </div>
-        {this.state.distanceForeach.map(distanceForeachIndicator)}
+        {this.state.distanceForeach.map((m, i) =>
+          distanceForeachIndicator(m, this.props.species.stats()[i], i)
+        )}
         {distanceIndicator(this.state.distance)}
       </div>
     )
   }
 }
 
-function distanceForeachIndicator(marker: DistanceMarker, index: number) {
+function distanceForeachIndicator(marker: DistanceMarker, stat: number, index: number) {
   switch (marker) {
     case DistanceMarker.Exact:
-      return <div className="GuessEach GuessExact" key={index}></div>
+      return <div className="GuessEach GuessExact" key={index}>{stat}</div>
     case DistanceMarker.Close:
-      return <div className="GuessEach GuessClose" key={index}></div>
+      return <div className="GuessEach GuessClose" key={index}>{stat}</div>
     case DistanceMarker.Far:
-      return <div className="GuessEach GuessFar" key={index}></div>
+      return <div className="GuessEach GuessFar" key={index}>{stat}</div>
     case DistanceMarker.None:
       return <div className="GuessEach" key={index}></div>
   }
