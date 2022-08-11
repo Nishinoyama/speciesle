@@ -192,8 +192,8 @@ export const speciesNameList = Array.from(speciesMapNative.keys())
 
 export function speciesByName(name: string): Species {
   name = name.replace(/[ぁ-ん]/g, ch => String.fromCharCode(ch.charCodeAt(0) + 0x60))
-  name = name.replace(/オス$/, "♂")
-  name = name.replace(/メス$/, "♀")
+  name = name.replace(/^ニドランオス$/, "ニドラン♂")
+  name = name.replace(/^ニドランメス$/, "ニドラン♀")
   name = name.replace(/^ユイイツオウ$/, "ブースター")
   name = name.replace(/^唯一王$/, "ブースター")
   const stats = speciesMapNative.get(name)
