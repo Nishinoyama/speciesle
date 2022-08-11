@@ -1,6 +1,6 @@
 import React from "react";
 import {DistanceSpecies, randomSpecies, Species, speciesByName} from "./Species";
-import Guess, {GuessInterface} from "./Guess";
+import Guess, {GuessProps} from "./Guess";
 import "./Game.css"
 
 interface GameProps {
@@ -9,7 +9,7 @@ interface GameProps {
 }
 
 interface GameStatus {
-  guessingList: GuessInterface[]
+  guessingList: GuessProps[]
   guessingString: string
   answerSpecies: Species
   revealed: boolean[]

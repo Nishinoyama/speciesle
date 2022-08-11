@@ -1,22 +1,61 @@
 import {DistanceMarker} from "./Game";
 import "./Guess.css"
+import React from "react";
 
-export interface GuessInterface {
+interface GuessState {
+  distance: number
+}
+
+export interface GuessProps {
   speciesName: string
   distanceForeach: DistanceMarker[]
   distance: number
 }
 
-export default function Guess(guess: GuessInterface) {
-  return (
-    <div className="GuessRow">
-      <div className="GuessName">
-        {guess.speciesName}
+export default class Guess extends React.Component<GuessProps, GuessState> {
+  private interval: any
+
+  constructor(props: GuessProps) {
+    super(props);
+    this.state = {
+      distance: 255 * Math.sqrt(6)
+    }
+  }
+
+  tick() {
+    const transRate = 8;
+    const nextDistance = this.props.distance / transRate + this.state.distance * (transRate - 1) / transRate
+    if (Math.abs(nextDistance - this.props.distance) < 1e-2) {
+      this.setState({
+        distance: this.props.distance
+      })
+      clearInterval(this.interval)
+    } else {
+      this.setState({
+        distance: nextDistance
+      })
+    }
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.tick(), 20)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
+  render() {
+    return (
+      <div className="GuessRow">
+        <div className="GuessName">
+          {this.props.speciesName}
+        </div>
+        {this.props.distanceForeach.map(distanceForeachIndicator)}
+        {distanceIndicator(this.state.distance)}
       </div>
-      {guess.distanceForeach.map(distanceForeachIndicator)}
-      {distanceIndicator(guess.distance)}
-    </div>
-  )
+    )
+  }
 }
 
 function distanceForeachIndicator(marker: DistanceMarker, index: number) {
