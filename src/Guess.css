@@ -31,10 +31,12 @@
 
 .GuessExact {
   background: green;
+  animation: ScaleEmphasized 0.2s 2 alternate;
 }
 
 .GuessClose {
   background: darkgoldenrod;
+  animation: ScaleBold 0.1s 2 alternate;
 }
 
 .GuessFar {
@@ -52,4 +54,26 @@
   white-space: nowrap;
   border: ghostwhite solid 2px;
   border-radius: 0.25rem;
+}
+
+.GuessStatCorrect {
+  animation: ScaleEmphasized 0.2s 2 alternate;
+}
+
+@keyframes ScaleBold {
+  from {
+    transform: scale(1.0);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes ScaleEmphasized {
+  from {
+    transform: scale(1.0);
+  }
+  to {
+    transform: scale(1.2);
+  }
 }

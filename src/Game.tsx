@@ -19,6 +19,7 @@ export enum DistanceMarker {
   Exact,
   Close,
   Far,
+  None,
 }
 
 export default class Game extends React.Component<GameProps, GameStatus> {
@@ -70,14 +71,18 @@ export default class Game extends React.Component<GameProps, GameStatus> {
     return (
       <div className="Game">
         <div className="MissingNo">
-          <div className="MissingName">???</div>
+          <div className="MissingName">
+            ???
+          </div>
           {this.state.answerSpecies.stats().map((t, i) => (
               this.state.revealed[i] ?
                 <div className="MissingEach MissingEachRevealed" key={i}>{t}</div> :
                 <div className="MissingEach" key={i}>{"HABCDS"[i]}</div>
             )
           )}
-          <div className="MissingStat">???</div>
+          <div className="MissingStat">
+            ???
+          </div>
         </div>
         <div className="GuessList">
           {this.state.guessingList.map((g, i) => (
