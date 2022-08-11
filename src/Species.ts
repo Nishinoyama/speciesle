@@ -16,6 +16,10 @@ export class Species {
   statsString(): string {
     return this._stats.join("-")
   }
+
+  statsSum(): number {
+    return this.stats().reduce((l, r) => l + r, 0)
+  }
 }
 
 export interface DistanceSpecies<T extends Species> {

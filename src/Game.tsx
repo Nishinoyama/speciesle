@@ -42,7 +42,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
     }
     if (e.key === 'Enter') {
       const guessingSpecies = speciesByName(this.state.guessingString.trim())
-      if (guessingSpecies.stats().reduce((l, r) => l + r, 0) === 0) {
+      if (guessingSpecies.statsSum() === 0) {
         return
       }
       const distance = this.props.distanceType.distanceNorm(guessingSpecies, this.state.answerSpecies)
@@ -81,7 +81,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
             )
           )}
           <div className="MissingStat">
-            ???
+            {`(${this.state.answerSpecies.statsSum()})`}
           </div>
         </div>
         <div className="GuessList">
