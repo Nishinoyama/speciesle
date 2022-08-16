@@ -536,7 +536,7 @@ const speciesMapNative = new Map<string, number[]>([
 
 export const speciesNameList = Array.from(speciesMapNative.keys())
 
-export function speciesByName(name: string): Species {
+export function speciesByName(name: string): Species | undefined {
   name = name.replace(/[ぁ-ん]/g, ch => String.fromCharCode(ch.charCodeAt(0) + 0x60))
   name = name.replace(/^ニドランオス$/, "ニドラン♂")
   name = name.replace(/^ニドランメス$/, "ニドラン♀")
@@ -545,9 +545,7 @@ export function speciesByName(name: string): Species {
   name = name.replace(/^ユイイツオウ$/, "ブースター")
   name = name.replace(/^唯一王$/, "ブースター")
   const stats = speciesMapNative.get(name)
-  if (stats === undefined) {
-    return new Species("MissingNo", [0, 0, 0, 0, 0, 0])
-  }
+  if (stats === undefined) return undefined
   return new Species(name, stats)
 }
 

@@ -42,9 +42,7 @@ export default class Game extends React.Component<GameProps, GameStatus> {
     }
     if (e.key === 'Enter') {
       const guessingSpecies = speciesByName(this.state.guessingString.trim())
-      if (guessingSpecies.statsSum() === 0) {
-        return
-      }
+      if (guessingSpecies === undefined) return
       const distance = this.props.distanceType.distanceNorm(guessingSpecies, this.state.answerSpecies)
       const distanceForeachNumber = this.props.distanceType.distanceForeach(guessingSpecies, this.state.answerSpecies)
       const distanceForeach = distanceForeachNumber.map(this.props.distanceMarker)
